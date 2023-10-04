@@ -1,4 +1,4 @@
-#!/Users/usi/Repositories/1-Prevent-2023-RP-2/AnomalyRanker/venv/bin/python
+#!/home/usi/Prevent-2023-RP2/AnomalyRanker/venv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys

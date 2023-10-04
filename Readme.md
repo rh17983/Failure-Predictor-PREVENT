@@ -3,7 +3,7 @@
  - Introduction
  - Terminology
  - Data set naming conventions
- - Artifact structure
+ - Artefact structure
  - Prerequisites
  - Environment Setup
  - Running Experiments
@@ -13,11 +13,11 @@
 # Introduction
 ---
 
-This artifact includes:
+This artefact includes:
 
-1. **a large data set of KPIs** (values of metrics collected from different nodes) that we obtained by running a large set of experiments on [**REDIS**](https://redis.io/), a commercially compliant, distributed cloud system.
-2. **the results of experimenting with Prevent, Premise [1], and Loud [2]**, three tools for predicting and localizing failures in multi-tier distributed systems, to comparatively evaluate their performance to predict and localize failures in dynamic systems.
-3. **toolset to execute Prevent, Premise [1], and Loud [2]** in order to replicate our results (point 2 above) based on the provided datasets of KPIs (point 1 above).
+1. **A large data set of KPIs** (values of metrics collected from different nodes) that we obtained by running a large set of experiments on [**REDIS**](https://redis.io/), a commercially compliant, distributed cloud system.
+2. **The results of experimenting with Prevent, Premise [1], and Loud [2]**, three tools for predicting and localizing failures in multi-tier distributed systems, to comparatively evaluate their performance to predict and localize failures in dynamic systems.
+3. **The toolset to execute Prevent, Premise [1], and Loud [2]** to replicate our results (point 2 above) based on the provided datasets of KPIs (point 1 above).
 
 **Prevent** combines two approaches, **PREVENT-A** and **PREVENT-E**, that offer implementations of state classifiers to predict failures, both integrated with the same anomaly ranker to localize faults. 
 
@@ -56,7 +56,7 @@ The "failure type" can be one of the following:
 * pack-delay (for network packet delay)
 * pack-loss (for network packet loss)
 
-The "replica number" ranges from 0 to 2, as each experiment was replicated three times.
+The "replica number" ranges from 0 to 2, as each experiment was replicated thrice.
 
 The datasets collected during normal, fault-free executions, along with all their associated data, are named as follows:
 * normal_1_14: This dataset comprises data collected over two weeks of normal execution and is utilized for training and validating the Prevent State Classifier's models.
@@ -71,8 +71,8 @@ The datasets collected during normal, fault-free executions, along with all thei
 * resources: this folder contains the input and output data
 * prevent_a.ipynb: this notebook contains a comprehensive set of scripts that cover various tasks, including training and evaluating the Prevent-A's Deep Autoencoder model, detecting anomalies, making predictions, and handling the client-side interaction with the Anomaly Ranker. The client side of the Anomaly Ranker is responsible for sending detected anomalies to the Anomaly Ranker server and receiving localization information in return.
 * premise.ipynb: this notebook contains a set of scripts that include training Premise's Logistic Model Tree model, making predictions and localizations
-* results.ipynb: this notebook contains the script which visualizes the combination of the Prevent State Classifier predictions and the Prevent Anomaly Ranker localizations, vizualizes the predictions and localizations of Premise, and calculates the false positive rate of Prevent and Loud on a normal data
-* requirements.txt file: the set of the python packages to install in the python virtual environment 
+* results.ipynb: this notebook contains the script which visualizes the combination of the Prevent State Classifier predictions and the Prevent Anomaly Ranker localizations, visualizes the predictions and localizations of Premise, and calculates the false positive rate of Prevent and Loud on a normal data
+* requirements.txt file: the set of the Python packages to install in the Python virtual environment 
 
 
 ## Data files in the "resources" folder:
@@ -85,14 +85,14 @@ The datasets collected during normal, fault-free executions, along with all thei
 
     The "suffix" value can take one of the following options:
     
-     * "consolidated": These datasets contains the **Raw Data**.
-     * "tuned": These datasets contains the **Preprocessed Data** which is employed for training and evaluating the Prevent-A, Premise, and LOUD models.
-     * "rbm": These datasets contains the **Preprocessed Data** which is identical to the one found in the corresponding folders with the "tuned" suffix, but they include an additional column (timestamp). This data format is utilized for training and evaluating the Prevent-E State Classifier.
+     * "consolidated": These datasets contain the **Raw Data**.
+     * "tuned": These datasets contain the **Preprocessed Data**, which is employed for training and evaluating the Prevent-A, Premise, and LOUD models.
+     * "rbm": These datasets contain the **Preprocessed Data**, which is identical to the one found in the corresponding folders with the "tuned" suffix, but they include an additional column (timestamp). This data format is utilized for training and evaluating the Prevent-E State Classifier.
 
 
  - anomalies/
  
-    This folder contains the sets of **Anomalous KPIs**, with their anomality scores (the value of the reconstruction error done by the Deep Autoencoder model), detected by the Deep Autoencoder model for each timestamp on **Preprocessed Data**.
+    This folder contains the sets of **Anomalous KPIs**, with their anomaly scores (the value of the reconstruction error done by the Deep Autoencoder model), detected by the Deep Autoencoder model for each timestamp on **Preprocessed Data**.
 
     The data in these .json files are formatted as JSON records, with each record consisting of the following fields:
 > * timestamp - timestamp of the observation (date/time in Unix format)
@@ -147,12 +147,12 @@ The datasets collected during normal, fault-free executions, along with all thei
 
  - bams/
  
-    This folder contains the **Binary Anomaly Matrixes**, the data structures which represent the sets of anomalous KPIs, detected by the Deep Autoencoder model for each timestamp on the Preprocessed Data. The binary values of the data set indicate the anomality of the KPI at the timestamp (0 - not anomalous, 1 - anomalous).
+    This folder contains the **Binary Anomaly Matrixes**, the data structures representing the sets of anomalous KPIs, detected by the Deep Autoencoder model for each timestamp on the Preprocessed Data. The binary values of the data set indicate the anomality of the KPI at the timestamp (0 - not anomalous, 1 - anomalous).
 
 
  - bams_shuffled/
 
-    This folder contains the **Shuffled Binary Anomaly Matrixes** - the same (see the previous point) binary anomaly matrixes with the anomalous values shuffled amoung all ten node master-slave pairs of the cluster. It represetns a synthetic sequences of anomalous KPIs that we derived by replicating and grouping anomalies from the **anomalies** folder. We use these sequences for training and testing Premise.
+    This folder contains the **Shuffled Binary Anomaly Matrixes** - the same (see the previous point) binary anomaly matrixes with the anomalous values shuffled among all ten node master-slave pairs of the cluster. It represents a synthetic sequence of anomalous KPIs that we derived by replicating and grouping anomalies from the **anomalies** folder. We use these sequences for training and testing Premise.
 
 
 # Prerequisites
@@ -161,11 +161,11 @@ The datasets collected during normal, fault-free executions, along with all thei
 ## Machine configuration we used in our experiments with Prevent-A and Premise
  - Type: Google Cloud VM instance e2-standard-4
  - OS: Ubuntu 20.04 LTS. x86/64, amd64 focal image built on 2023-06-16, supports Shielded VM features
- - Processior: 2 vCPU
+ - Processor: 2 vCPU
  - Memory: 4GB
  - Disc space: 30GB
  - Software packages:
-     - python 3.8.10
+     - Python 3.8.10
  
 ## Machine configuration we used in our experiments with Prevent-E
  - OS: MacOS Catalina
@@ -182,7 +182,7 @@ The datasets collected during normal, fault-free executions, along with all thei
 
 1. Copy the "AnomalyRanker" and the "resources" folders and the requirements.txt, prevent_a.ipynb, premise.ipynb, and results.ipynb files to your computer
 
-2. Go the the folder you copied the documents to (we will call it root folder)
+2. Go to the folder you copied the documents to (we will call it the root folder).
 
 3. Update the package manager
 ```
@@ -206,7 +206,7 @@ sudo apt install python3-pip
 python -m pip install --upgrade pip
 ```
 
-7. Check the version of python (we used the version 3.8.10)
+7. Check the version of Python (we used version 3.8.10)
 ```
 python --version
 ```
@@ -304,7 +304,7 @@ python -m ipykernel install --user --name=Kernel-prevent-23
 PATH="$PATH:$HOME/.local/bin/"
 ```
 
-26. Start Jupiter Lab (copy the auth tocken from the Jupiter Lab start command output in the console)
+26. Start Jupiter Lab (copy the auth token from the Jupiter Lab start command output in the console)
 ```
 jupyter lab --port 5601 --ip 0.0.0.0
 ```
@@ -333,9 +333,9 @@ CTRL + A + D
 URL: {machine IP adress}:5601
 ```
 
-> **_NOTE:_**  your firewall must allow inbound connections on this port
+> **_NOTE:_** Your firewall must allow inbound connections on this port
 
-> **_NOTE:_**  use the Kernel-prevent-23 kernel for all notebooks
+> **_NOTE:_** Use the Kernel-prevent-23 kernel for all notebooks
 
 > **_NOTE:_** You might have to enter the token copied from the Jupiter Lab start command output in the console
 
@@ -351,9 +351,9 @@ output: **Preprocessed Data**
 
 ## Get the Prevent-E predictions
 
-> **_NOTE:_**  if you run the Matlab on a separate machine, then, before the execution of the Matlab's Main.m script, move the files of the Preprocessed Data (the dataset folders with the suffix _rbm, see detail in the "Data files in the "resources" folder" section) to the resources/datasets folder from the same folder of the machine you have run the data preproccessing script (the dataset_tune.ipynb notebook).
+> **_NOTE:_**  If you run the Matlab on a separate machine, then, before the execution of the Matlab's Main.m script, move the files of the Preprocessed Data (the dataset folders with the suffix _rbm, see detail in the "Data files in the "resources" folder" section) to the resources/datasets folder from the same folder of the machine you have run the data preproccessing script (the dataset_tune.ipynb notebook).
 
-> **_NOTE:_**  if you run the Matlab on a separate machine, then, after the execution of the Matlab's Main.m script, move the results files from the resources/predictions-e folder to the same folder of the machine you run the results.ipynb notebook.
+> **_NOTE:_**  If you run the Matlab on a separate machine, then, after the execution of the Matlab's Main.m script, move the results files from the resources/predictions-e folder to the same folder of the machine you run the results.ipynb notebook.
 
 1. Start Matlab
 2. Go to the "Prevent-E" folder in the Matlab's UI
@@ -365,9 +365,9 @@ Sub-scripts:
 
 1. Training the Prevent-E RBM model
 
-input data:
+Input data:
 
-- The **Preprocessed Data** collected during the 2 weeks of normal execution.
+- The **Preprocessed Data** collected during the two weeks of normal execution.
 Location: resources/datasets/normal_1_14_rbm
 
 output data: --
@@ -375,12 +375,12 @@ output data: --
 
 2. Making predictions on the data, collected during the one week of normal execution.
 
-input data:
+Input data:
 
 - The **Preprocessed Data** collected during the one week of normal execution. 
 Location: resources/datasets/fpr-validation_rbm
 
-output data:
+Output data:
 
 - **Prevent-E Classifier predictions**
 Location: resources/predictions-e/fpr-validation.csv
@@ -388,12 +388,12 @@ Location: resources/predictions-e/fpr-validation.csv
 
 3. Making predictions on the experimental data, collected during the execution with seeded faults.
 
-input data:
+Input data:
 
 - The **Preprocessed Data** collected during the execution with seeded faults.
 Location:  resources/datasets/{failure type}-{replica number}_rbm folders, where the "failure type" value is amoung the cpu-stress, mem-leak, pack-corr, pack-delay, and pack-loss, and the "replica number" ranges from 0 to 2.
 
-output data:
+Output data:
 
 - **Prevent-E Classifier predictions**
 Location: resources/predictions-e folder
@@ -438,9 +438,9 @@ CTRL + A + D
 URL: {machine IP adress}:5601
 ```
 
-> **_NOTE:_**  your firewall must allow inbound connections on this port
+> **_NOTE:_** Your firewall must allow inbound connections on this port
 
-> **_NOTE:_**  use the Kernel-prevent-23 kernel for all notebooks
+> **_NOTE:_** Use the Kernel-prevent-23 kernel for all notebooks
 
 > **_NOTE:_** You might have to enter the token copied from the Jupiter Lab start command output in the console
 
@@ -452,7 +452,7 @@ Sub-scripts:
 
 1. Training the Prevent-A Deep Autoencoder model
 
-input data: The **Preprocessed Data** collected during the 2 weeks of normal execution.
+Input data: The **Preprocessed Data** collected during the two weeks of normal execution.
 Location: resources/datasets/normal_1_14_tuned
 
 output data: --
@@ -460,12 +460,12 @@ output data: --
 
 2. Making Prevent-A predictions on the experimental data, collected during the one week of normal execution.
 
-input data:
+Input data:
 
 - The **Preprocessed Data** collected during the one week of normal execution.
 Location: resources/datasets/fpr-validation_tuned
 
-output data:
+Output data:
 
 - **Prevent-A Classifier predictions**.
 Location: resources/predictions-a/fpr-validation.csv
@@ -473,18 +473,18 @@ Location: resources/predictions-a/fpr-validation.csv
 
 3. Making Prevent-A predictions on the experimental data, collected during the execution with seeded faults.
 
-input data:
+Input data:
 
 - The **Preprocessed Data** collected during the execution with seeded faults.
-Location:  resources/datasets/{failure type}-{replica number}_tuned folders, where the "failure type" value is amoung the cpu-stress, mem-leak, pack-corr, pack-delay, and pack-loss, and the "replica number" ranges from 0 to 2.
+Location:  resources/datasets/{failure type}-{replica number}_tuned folders, where the "failure type" value is among the cpu-stress, mem-leak, pack-corr, pack-delay, and pack-loss, and the "replica number" ranges from 0 to 2.
 
-output data:
+Output data:
 
 - **Prevent-A Classifier predictions**.
 Location: resources/predictions-a folder
 
  
-4. Detection of the anomolous KPIs
+4. Detection of the anomalous KPIs
 
 Input data:
 
@@ -492,7 +492,7 @@ Input data:
 Location: resources/datasets/fpr-validation_tuned
 
 - The **Preprocessed Data** collected during the execution with seeded faults.
-Location: the resources/datasets/{failure type}-{replica number}_tuned folders, where the "failure type" value is amoung the cpu-stress, mem-leak, pack-corr, pack-delay, and pack-loss, and the "replica number" ranges from 0 to 2
+Location: the resources/datasets/{failure type}-{replica number}_tuned folders, where the "failure type" value is among the cpu-stress, mem-leak, pack-corr, pack-delay, and pack-loss, and the "replica number" ranges from 0 to 2
 
 Output data:
 
@@ -500,7 +500,7 @@ Output data:
 Location: resources/anomalies folder.
 
 
-5. Localization of the failures by requesting Anomaly Ranker server
+5. Localization of the failures by requesting the Anomaly Ranker server
 
 Input data:
 
@@ -513,12 +513,12 @@ Output data:
 Location: resources/localisations folder.
 
 
-6. Creation of The Shuffled Binary Anomaly Matrixes for the experimental data sets with seeded failures. Represent sets of the anomalous KPIs in for format required by the Premise. Used as an input for Premise.
+6. Creation of The Shuffled Binary Anomaly Matrixes for the experimental data sets with seeded failures. Represent sets of the anomalous KPIs in the format required by the Premise. Used as an input for Premise.
 
 Input data:
 
 - The **Preprocessed Data** collected during the execution with seeded faults.
-Location: the resources/datasets/{failure type}-{replica number}_tuned folders, where the "failure type" value is amoung the cpu-stress, mem-leak, pack-corr, pack-delay, and pack-loss, and the "replica number" ranges from 0 to 2
+Location: the resources/datasets/{failure type}-{replica number}_tuned folders, where the "failure type" value is among the cpu-stress, mem-leak, pack-corr, pack-delay, and pack-loss, and the "replica number" ranges from 0 to 2
 
 Output data: 
 
@@ -553,17 +553,17 @@ Location: resources/predictions-p
 Sub-scripts:
 
 - Analysis and visualization of the prediction and localization results of Prevent-A, Prevent-E and Premise on the experimental data sets with seeded faults
-- Calculation of the false positive rate of the Prevent-A, Prevent-E, and Loud on a one week of normal data
+- Calculation of the false positive rate of the Prevent-A, Prevent-E, and Loud on a one-week normal data
 
 Input:
 
-- **Prevent-A Classifier predictions** on a one week normal data.
+- **Prevent-A Classifier predictions** on a one-week normal data.
 Location: resources/predictions-a/fpr-validation.csv
 
 - **Prevent-A Classifier predictions** on experimental data sets with seeded failures.
 Location: resources/predictions-a folder
 
-- **Prevent-E Classifier predictions** on a one week normal data.
+- **Prevent-E Classifier predictions** on a one-week normal data.
 Location: resources/predictions-e/fpr-validation.csv
 
 - **Prevent-E Classifier predictions** on experimental data sets with seeded failures.
@@ -577,8 +577,8 @@ Location: resources/localisations folder.
 
 Output:
 
-- Vizualization of the Prediction & Localization of Prevent-A, Prevent-E, and Premise on the experimental data sets with seeded faults
-- Calculation of the false positive rate of the Prevent-A, Prevent-E, and Loud on a one week of normal data
+- Visualization of the prediction and localisation of Prevent-A, Prevent-E, and Premise on the experimental data sets with seeded faults
+- Calculation of the false positive rate of the Prevent-A, Prevent-E, and Loud on a one-week normal data
 
 ```
 
