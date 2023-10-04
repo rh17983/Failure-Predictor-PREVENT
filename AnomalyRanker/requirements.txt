@@ -1,0 +1,17 @@
+click
+networkx
+numpy
+requests
+scikit-learn
+scipy
+flask
+jinja2
+appdirs
+decorator
+itsdangerous
+markupsafe
+packaging
+pyparsing
+six
+werkzeug
+pendulum
